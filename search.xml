@@ -13,14 +13,15 @@
 </li>
 <li><p><strong>SQL(Structure Query Language)</strong></p>
 <p>结构化查询语言：专门用来与数据库通信的语言。几乎所有的DBMS都支持SQL</p>
-</li>
-</ol>
+<span id="more"></span>
 <blockquote>
 <p>开启数据库服务:</p>
 <blockquote>
 <p>管理员身份在命令行用<code>net start mysql80</code>（MySQL的版本）启动；<code>net start mysql80</code>停止</p>
 </blockquote>
 </blockquote>
+</li>
+</ol>
 <blockquote>
 <p>MySQL服务端的登录和退出（前提是数据库服务开启）：</p>
 <blockquote>
