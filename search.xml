@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>MySQL基础</title>
-    <url>/2021/11/08/mysql%E5%9F%BA%E7%A1%80/</url>
+    <url>/2021/11/11/mysql%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="数据库基础"><a href="#数据库基础" class="headerlink" title="数据库基础"></a>数据库基础</h1><hr>
 <h2 id="数据库相关概念"><a href="#数据库相关概念" class="headerlink" title="数据库相关概念"></a>数据库相关概念</h2><ol>
 <li><p><strong>DB(database)</strong></p>
@@ -17,7 +17,7 @@
 <blockquote>
 <p>开启数据库服务:</p>
 <blockquote>
-<p>管理员身份在命令行用<code>net start mysql80</code>（MySQL的版本）启动；<code>net start mysql80</code>停止</p>
+<p>管理员身份在命令行用<code>net start mysql80</code>（MySQL的版本）启动；<code>net stop mysql80</code>停止</p>
 </blockquote>
 </blockquote>
 </li>
@@ -47,8 +47,8 @@
 </li>
 <li><p>查看服务器的版本：</p>
 <ul>
-<li>方式一：登录到MySQL服务端，然后<code>select version</code></li>
-<li>方式二：dos命令<code>mysql --version</code>或<code>mysql --V</code></li>
+<li>方式一：登录到MySQL服务端，然后<code>select version()</code></li>
+<li>方式二：dos命令<code>mysql --version</code></li>
 </ul>
 </li>
 </ol>
@@ -112,7 +112,7 @@
 <li>运算符</li>
 <li>连接符，只要有一个操作数为字符串</li>
 </ol>
-<h5 id="MySQL中-号只有运算符的功能："><a href="#MySQL中-号只有运算符的功能：" class="headerlink" title="MySQL中+号只有运算符的功能："></a>MySQL中+号只有运算符的功能：</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT 100+90;   #两个操作数都为数值型，则做加法运算</span><br><span class="line">SELECT &#x27;100&#x27;+90;   #其中一方为字符型，尝试转换为字符型，转换成功则继续运算</span><br><span class="line">SELECT &#x27;john&#x27;+90;   #转换失败，则将字符型转换为0</span><br><span class="line">SELECT &#x27;null&#x27;+90;   #只要其中一方为null，则结果肯定为null</span><br></pre></td></tr></table></figure>
+<h5 id="MySQL中-号只有运算符的功能："><a href="#MySQL中-号只有运算符的功能：" class="headerlink" title="MySQL中+号只有运算符的功能："></a>MySQL中+号只有运算符的功能：</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT 100+90;   #两个操作数都为数值型，则做加法运算</span><br><span class="line">SELECT &#x27;100&#x27;+90;   #其中一方为字符型，尝试转换为字符型，转换成功则继续运算</span><br><span class="line">SELECT &#x27;john&#x27;+90;   #转换失败，则将字符型转换为0</span><br><span class="line">SELECT null +90;   #只要其中一方为null，则结果肯定为null</span><br></pre></td></tr></table></figure>
 
 
 
@@ -307,11 +307,11 @@
 <li><p>case</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CASE 要判断的字段或表达式     #类似于Java中的switch</span><br><span class="line">WHEN 常量1 THEN 要显示的值1（或语句1;）</span><br><span class="line">WHEN 常量2 THEN 要显示的值2（或语句2;）</span><br><span class="line">...</span><br><span class="line">ELSE 要显示的值n（或语句n;）</span><br><span class="line">END;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT salary,department_id</span><br><span class="line">CASE department_id</span><br><span class="line">WHEN 30 THEN salary*1.1</span><br><span class="line">WHEN 40 THEN salary*1.2</span><br><span class="line">ELSE salary</span><br><span class="line">END AS 新工资</span><br><span class="line">FROM employees;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT CASE department_id</span><br><span class="line">WHEN 30 THEN salary*1.1</span><br><span class="line">WHEN 40 THEN salary*1.2</span><br><span class="line">ELSE salary</span><br><span class="line">END AS newSalaty, department_id</span><br><span class="line">FROM employees;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CASE    #类似于Java中的多重if else</span><br><span class="line">WHEN 条件1 THEN 要显示的值1或（语句1;）</span><br><span class="line">WHEN 条件2 THEN 要显示的值2或（语句2;）</span><br><span class="line">...</span><br><span class="line">ELSE 要显示的值n或（语句n;）</span><br><span class="line">END;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT salary</span><br><span class="line">CASE</span><br><span class="line">WHEN salary&gt;20000 THEN &#x27;A&#x27;</span><br><span class="line">WHEN salary&gt;15000 THEN &#x27;B&#x27;</span><br><span class="line">ELSE &#x27;C&#x27;</span><br><span class="line">END AS 工资级别</span><br><span class="line">FROM employees;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT</span><br><span class="line">CASE</span><br><span class="line">WHEN salary&gt;20000 THEN &#x27;A&#x27;</span><br><span class="line">WHEN salary&gt;15000 THEN &#x27;B&#x27;</span><br><span class="line">ELSE &#x27;C&#x27;</span><br><span class="line">END AS 工资级别</span><br><span class="line">FROM employees;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h3 id="分组函数"><a href="#分组函数" class="headerlink" title="分组函数"></a>分组函数</h3><blockquote>
 <p>做统计使用，又称为统计函数、聚合函数、组函数</p>
@@ -485,6 +485,8 @@
 <img src="https://js-blog-images.oss-cn-chengdu.aliyuncs.com/MySQL/MySQL%E5%9F%BA%E7%A1%80/MySQL%E5%9F%BA%E7%A1%80%20(1).png" style="zoom:40%;" />
 
 <img src="https://js-blog-images.oss-cn-chengdu.aliyuncs.com/MySQL/MySQL%E5%9F%BA%E7%A1%80/MySQL%E5%9F%BA%E7%A1%80%20(2).png" style="zoom:45%;" />
+
+
 
 
 
@@ -668,10 +670,10 @@
 <p>容错性处理：<code>drop database if exists 库名;</code>，若库不存在，则不做删除操作（如不做该处理，当库名不存在时会报错）</p>
 <h4 id="表的管理"><a href="#表的管理" class="headerlink" title="表的管理"></a>表的管理</h4><h5 id="表的创建"><a href="#表的创建" class="headerlink" title="表的创建"></a>表的创建</h5><blockquote>
 <p>语法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE 表名(</span><br><span class="line">		列名 列的类型 (长度 约束),</span><br><span class="line">  	...</span><br><span class="line">  	列名 列的类型 (长度 约束)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE 表名(</span><br><span class="line">	列名 列的类型 (长度 约束),</span><br><span class="line">  	...</span><br><span class="line">  	列名 列的类型 (长度 约束)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 </blockquote>
 <p>容错性处理：<code>create table if not exists 表名;</code>，若表存在，则不再创建（如不做该处理，当表名存在时会报错）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE 表名(</span><br><span class="line">		id INT,</span><br><span class="line">  	bname VARCHAR(20),   #20表示有20个字符的长度</span><br><span class="line">  	authorId INT</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE 表名(</span><br><span class="line">	id INT,</span><br><span class="line">  	bname VARCHAR(20),   #20表示有20个字符的长度</span><br><span class="line">  	authorId INT</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
 <h5 id="表的修改"><a href="#表的修改" class="headerlink" title="表的修改"></a>表的修改</h5><blockquote>
 <p>语法：<code>alter table 表名 add|drop|modify|change column 列名 (列类型 约束);</code></p>
@@ -889,7 +891,7 @@
 <li><code>default</code>：默认，用于保证该字段有默认值</li>
 <li><code>primary key</code>：主键，用于保证该字段的值具有唯一性，并且非空</li>
 <li><code>unique</code>：唯一，用于保证该字段的值具有唯一性，可以为空</li>
-<li><code>check</code>：检查约束（低版本的MySQL不支持）</li>
+<li><code>check</code>：检查约束（MySQL不支持，但不报错）</li>
 <li><code>foreign key</code>：外键，用于限制两个表的关系，保证该字段的值必须来自于主表的关联列的值</li>
 </ol>
 <p>添加约束的时机：</p>
@@ -1177,7 +1179,7 @@
 <li>函数：有且仅有一个返回；适合做处理数据后返回一个结果</li>
 <li>存储过程：可以有多个返回；适合做批量插入、批量更新</li>
 </ul>
-<h4 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE FUNCTION 函数名(参数列表) RETURNS 返回类型;</span><br><span class="line">BEGIN</span><br><span class="line">	函数体</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+<h4 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE FUNCTION 函数名(参数列表) RETURNS 返回类型</span><br><span class="line">BEGIN</span><br><span class="line">	函数体</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
 
 <p>注意：</p>
 <ol>
